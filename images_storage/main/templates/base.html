@@ -1,6 +1,12 @@
 {% load static %}
 <html lang="en">
 <head>
+ {% load bootstrap4 %}
+ {% bootstrap_javascript %}
+    {% bootstrap_css %}
+        <script src="{% bootstrap_jquery_url %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
     <meta charset="UTF-8">
     <title>Головна сторінка</title>
     <style>
@@ -12,17 +18,24 @@
           text-decoration:none;
           color:red;
         }
+        .form {
+        width:600px;
+        margin:0 auto;
+        }
+        .asteriskField {
+        color:red
+        }
         .cont{
         height:80vh;
         display:flex;
         align-items:center;
         }
         header{
-            height:40px;
             padding:3vh;
             background-color:#f6f6f6;
             display:flex;
             justify-content:space-around;
+            margin-bottom:3vh;
         }
         .sub-block a, span{
         margin-left:3vh;
@@ -96,6 +109,25 @@
 
 }
 
+
+        #hint_id_password1 {
+            display:none;
+        }
+        #hint_id_username {
+            display:none;
+        }
+        #text {
+        display:none;
+         .form {
+        width:600px;
+        margin:0 auto;
+        }
+        .asteriskField {
+        color:red
+        }
+       .content-section {
+        margin-top:4vh;
+       }
     </style>
 </head>
 <body>
@@ -118,7 +150,8 @@
          {% endif %}
         </div>
     </header>
+
 {% block content %}
-{% endblock content %}
+    {% endblock content %}
 </body>
 </html>

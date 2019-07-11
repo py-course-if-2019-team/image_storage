@@ -1,72 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- {% load bootstrap4 %}
+{% extends "base.html" %}
     {% load crispy_forms_tags %}
-    <script src="{% bootstrap_jquery_url %}"></script>
-    {% bootstrap_javascript %}
-    {% bootstrap_css %}
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .form {
-        width:600px;
-        margin:0 auto;
-        }
-        .asteriskField {
-        color:red
-        }
-             header{
-            padding:3vh;
-            background-color:#f6f6f6;
-            display:flex;
-            justify-content:space-around;
-        }
-        .sub-block a{
-        margin-left:3vh;
-        color:#777;
-        font-size:1.7rem;
-        text-decoration:none;
-        }
-        .main-block {
-        width:100%;
-        display:flex;
-        justify-content:center;
-        }
-        .btn-b {
-            padding:5vh 10vh;
-            background-color:orange;
-            border:none;
-            cursor:pointer;
-            margin:0 auto;
-            align-self:center;
-            outline:none;
-            color:white;
-            font-size:32px;
-            height:200px;
-        }
-        #hint_id_password1 {
-            display:none;
-        }
-        #hint_id_username {
-            display:none;
-        }
-        #text {
-        display:none;
-        }
-    </style>
-</head>
-<body>
- <header>
-        <div class="sub-block">
-        <a href="{% url 'main' %}">Головна</a>
-        <a href="{% url 'images' %}">Всі зображення</a>
-        </div>
-        <div class="sub-block">
-        <a href="{% url 'login' %}">Ввійти</a>
-        <a href="{% url 'register' %}">Зареєструватись</a>
-        </div>
-    </header>
+
+{% block content %}
+
 <div class="content-section">
     <form method="POST" class="form reg">
         {% csrf_token %}
@@ -87,5 +23,5 @@
     </form>
 
 </div>
-</body>
-</html>
+
+{% endblock %}
