@@ -32,6 +32,14 @@
     </form>
 
 </div>
+<script type="text/javascript">
+let addOn = '<span class="asteriskField">*</span>';
+let name = document.getElementById("div_id_username").querySelectorAll('label')[0];
+let passOne = document.getElementById("div_id_password").querySelectorAll('label')[0];
 
+
+name.innerHTML = "Ваше ім'я" + addOn;
+passOne.innerHTML = 'Пароль' + addOn;
+</script>
 {% endblock %}
 

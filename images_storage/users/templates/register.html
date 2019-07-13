@@ -23,5 +23,16 @@
     </form>
 
 </div>
+<script type="text/javascript">
+let addOn = '<span class="asteriskField">*</span>';
+let name = document.getElementById("div_id_username").querySelectorAll('label')[0];
+let passOne = document.getElementById("div_id_password1").querySelectorAll('label')[0];
+let passTwo = document.getElementById("div_id_password2").querySelectorAll('label')[0];
+let passHint = document.getElementById("hint_id_password2");
 
+name.innerHTML = "Ваше ім'я" + addOn;
+passOne.innerHTML = "Введіть пароль" + addOn;
+passTwo.innerHTML = "Повторіть пароль" + addOn;
+passHint.innerHTML = 'Введіть пароль для підтвердження';
+</script>
 {% endblock %}
