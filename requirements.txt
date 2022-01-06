@@ -1,6 +1,6 @@
 Django==2.2.4
 Pillow==6.0.0
-Celery==4.3.0
+Celery==5.2.2
 django-crispy-forms==1.7.2
 django-bootstrap4==0.0.8
 social-auth-app-django
