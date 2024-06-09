@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/py-course-if-2019-team/image_storage/compare/backend-cli-v1.0.1...backend-cli-v1.0.2) (2024-06-09)
+
+
+### Bug Fixes
+
+* first release ([ea069ff](https://github.com/py-course-if-2019-team/image_storage/commit/ea069ff7559341cab61150acfc2e0ff921f80ee0))
+
 ## [1.0.1](https://github.com/py-course-if-2019-team/image_storage/compare/backend-cli-v1.0.0...backend-cli-v1.0.1) (2024-06-09)
 
 
