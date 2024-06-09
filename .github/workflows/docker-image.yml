@@ -1,18 +1,80 @@
-name: Docker Image CI
+name: Test release please
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+
+
+env:
+  # Use docker.io for Docker Hub if empty
+  IMAGE_REGISTRY: ghcr.io
+  IMAGE_REGISTRY_USER: ${{ github.actor }}
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.GHCR_DEPLOY_PAT }}
+  # github.repository as <account>/<repo>
+  IMAGE_NAME_PREFIX: sies-at/backend-cli
+  IMAGE_COMMIT_TAG: sha-${{ github.sha }}
+  IMAGE_BUILD_CACHE_LOCATION: /tmp/frontend-cache
+  DEPLOY_ACTOR_REPO: sies-at/SIES-infrastructure
+  RELEASE_PLEASE_CONFIG_FILE: ".github/workflows/configs/backend-cli/release-please-config.json"
+  RELEASE_PLEASE_MANIFEST_FILE: ".github/workflows/configs/backend-cli/.release-please-manifest.json"
 
 jobs:
 
-  build:
-
+  release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      paths_released: ${{ steps.release.outputs.paths_released }}
+      pr: ${{ steps.release.outputs.pr }}
+      prs: ${{ steps.release.outputs.prs }}
+      release_tag: ${{ steps.release.outputs.release_tag }}
+    steps:
+      # PR should not be triggered by repository's token to trigger GHA for auto approval
+      # so, use github apps token instead of repository token
+      # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+      #      - id: app-token
+      #        uses: actions/create-github-app-token@v1
+      #        with:
+      #          app-id: ${{ secrets.STARTUS_BOT_APP_ID }}
+      #          private-key: ${{ secrets.STARTUS_BOT_PRIVATE_KEY }}
+      - id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          target-branch: ${{ github.ref_name }}
+          config-file: ${{ env.RELEASE_PLEASE_CONFIG_FILE }}
+          manifest-file: ${{ env.RELEASE_PLEASE_MANIFEST_FILE }}
+          skip-github-release: false
+          skip-github-pull-request: false
+
+      - name: Debug
+        run: |
+          echo "$RELEASE_OUTPUT"
+          echo "--------------"
+          env
+
+  build:
+    # runs-on: self-hosted
+    runs-on: ubuntu-22.04
+    needs: release-please
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Debug
+        run: |
+          echo "Releases created: ${{ needs.release-please.outputs.releases_created }}"
+          echo "-------------------------"
+          echo "Paths released: ${{ needs.release-please.outputs.paths_released }}"
+          echo "-------------------------"
+          echo "PR: ${{ needs.release-please.outputs.pr }}"
+          echo "-------------------------"
+          echo "PRs: ${{ needs.release-please.outputs.prs }}"
+          echo "-------------------------"
+          echo "Release Tag: ${{ needs.release-please.outputs.release_tag }}"
