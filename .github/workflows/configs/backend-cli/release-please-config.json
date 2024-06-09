@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "bootstrap-sha": "7a5ebb5464b2d35c4d7c5093f3a5abd73592cdbb",
+  "bootstrap-sha": "46093bf294ddf9a91d33598d07405d06d5582881",
   "include-component-in-tag": true,
   "packages": {
     "services/backend-cli": {
