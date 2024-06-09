@@ -73,8 +73,8 @@ jobs:
           echo "-------------------------"
           echo "Paths released: ${{ needs.release-please.outputs.paths_released }}"
           echo "-------------------------"
-          echo "PR: ${{ needs.release-please.outputs.pr }}"
+          echo '''PR: ${{ needs.release-please.outputs.pr }}'''
           echo "-------------------------"
-          echo "PRs: ${{ needs.release-please.outputs.prs }}"
+          echo '''PRs: ${{ needs.release-please.outputs.prs }}'''
           echo "-------------------------"
           echo "Release Tag: ${{ needs.release-please.outputs.release_tag }}"
