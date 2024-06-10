@@ -3,7 +3,7 @@ name: Test release please
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 env:
   # Use docker.io for Docker Hub if empty
